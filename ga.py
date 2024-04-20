@@ -7,7 +7,7 @@ import pygad
 import os
 import json
 from datetime import datetime
-from ml import logistic_regression, random_forest
+from ml import logistic_regression, random_forest, knn, gnb
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-g", 
@@ -42,7 +42,7 @@ parser.add_argument("-d",
                     type=str)
 parser.add_argument("-a", 
                     "--algorithm",
-                    help="Wich algorithm to use 'lr' or 'rf", 
+                    help="Wich algorithm to use 'lr', 'knn' or 'rf", 
                     default="lr",
                     type=str)
 args = parser.parse_args()
@@ -91,6 +91,10 @@ def fitness_func(ga_instance, solution, solution_idx):
         return logistic_regression(dm)
     elif args.algorithm == 'rf':
         return random_forest(dm)
+    elif args.algorithm == 'knn':
+        return knn(dm)
+    elif args.algorithm == 'gnb':
+        return gnb(dm)
 
 ga_instance = pygad.GA(num_generations=args.generations,
                        sol_per_pop=100,

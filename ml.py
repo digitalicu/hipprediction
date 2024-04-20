@@ -2,6 +2,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
 from sklearn.feature_selection import RFE
 
 from data import DataManager
@@ -20,7 +22,7 @@ def mean_result(cnt=10):
     return decorator
 
 def rfe_feature_selection(data_manager: DataManager, classifier, step=1, fts=10):
-    train_features, test_features, train_labels, test_labels = data_manager.train_split()
+    train_features, _, train_labels, _ = data_manager.train_split()
     rfe_method = RFE(
         classifier,
         step=1,
@@ -36,6 +38,22 @@ def logistic_regression(data_manager: DataManager):
     lr.fit(train_features, train_labels)
 
     y_pred_prob = lr.predict_proba(test_features)[:, 1]
+    return roc_auc_score(test_labels, y_pred_prob)
+
+def knn(data_manager: DataManager, neighbors=300):
+    train_features, test_features, train_labels, test_labels = data_manager.train_split()
+    knn = KNeighborsClassifier(n_neighbors=neighbors)
+    knn.fit(train_features, train_labels)
+
+    y_pred_prob = knn.predict_proba(test_features)[:, 1]
+    return roc_auc_score(test_labels, y_pred_prob)
+
+def gnb(data_manager: DataManager):
+    train_features, test_features, train_labels, test_labels = data_manager.train_split()
+    gnb = GaussianNB()
+    gnb.fit(train_features, train_labels)
+
+    y_pred_prob = gnb.predict_proba(test_features)[:, 1]
     return roc_auc_score(test_labels, y_pred_prob)
 
 @mean_result(50)

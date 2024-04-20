@@ -41,7 +41,8 @@ class DataManager(object):
         features = features.drop(self.selected_feature, axis = 1)
         return train_test_split(features, labels, test_size=self.test_size, random_state=self.random_state)
         
-    def get_data(self):
+    def get_data(self, featured=True):
         full_data_columns = copy.deepcopy(self.get_tested_features())
-        full_data_columns.append(self.selected_feature)
+        if featured:
+            full_data_columns.append(self.selected_feature)
         return self.data[full_data_columns]

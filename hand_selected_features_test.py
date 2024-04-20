@@ -1,7 +1,7 @@
 from data import DataManager
 import argparse
 import json
-from ml import logistic_regression, random_forest
+from ml import logistic_regression, random_forest, knn, gnb
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-o", 
@@ -42,3 +42,5 @@ print("Source: %s" % args.features)
 print("Number of features: %s" % len(tested_features))
 print("Logistic regression AUC: %.6f" % logistic_regression(dm))
 print("Random Forest AUC:       %.6f" % random_forest(dm))
+print("KNN AUC:                 %.6f" % knn(dm))
+print("Naive Bayes AUC:         %.6f" % gnb(dm))

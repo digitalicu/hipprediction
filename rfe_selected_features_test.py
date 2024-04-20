@@ -1,8 +1,10 @@
 from data import DataManager
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
 import argparse
-from ml import logistic_regression, random_forest, rfe_feature_selection
+from ml import logistic_regression, random_forest, rfe_feature_selection, knn, gnb
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-o", 
@@ -42,3 +44,13 @@ rf_features = rfe_feature_selection(dm, RandomForestClassifier(n_estimators=100)
 dm.set_tested_features(rf_features)
 print("Selected: %s" % ", ".join(rf_features))
 print("Random Forest AUC:       %.6f" % random_forest(dm))
+
+knn_features = rfe_feature_selection(dm, KNeighborsClassifier(n_neighbors=300), fts=args.features_to_select)
+dm.set_tested_features(knn_features)
+print("Selected: %s" % ", ".join(knn_features))
+print("KNN AUC:                 %.6f" % knn(dm))
+
+gnb_features = rfe_feature_selection(dm, GaussianNB(), fts=args.features_to_select)
+dm.set_tested_features(gnb_features)
+print("Selected: %s" % ", ".join(gnb_features))
+print("Naive Bayes AUC:         %.6f" % gnb(dm))
