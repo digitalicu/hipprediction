@@ -5,12 +5,15 @@ import copy
 
 class DataManager(object):
     test_size = 0.25
-    random_state = 42
+    random_state = None
     use_procedure = False
 
     def __init__(self, filename):
         self.data = pd.read_csv(filename)
         self.tested_features = None
+
+    def get_random_state(self):
+        return self.random_state
 
     def switch_procedure(self):
         self.use_procedure = not self.use_procedure

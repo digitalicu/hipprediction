@@ -32,6 +32,7 @@ def rfe_feature_selection(data_manager: DataManager, classifier, step=1, fts=10)
     s = rfe_method.get_support()
     return list([data_manager.get_tested_features()[i] for i,v in enumerate(s) if v])
 
+@mean_result()
 def logistic_regression(data_manager: DataManager):
     train_features, test_features, train_labels, test_labels = data_manager.train_split()
     lr = LogisticRegression(solver='liblinear')
@@ -40,6 +41,7 @@ def logistic_regression(data_manager: DataManager):
     y_pred_prob = lr.predict_proba(test_features)[:, 1]
     return roc_auc_score(test_labels, y_pred_prob)
 
+@mean_result()
 def knn(data_manager: DataManager, neighbors=300):
     train_features, test_features, train_labels, test_labels = data_manager.train_split()
     knn = KNeighborsClassifier(n_neighbors=neighbors)
@@ -48,6 +50,7 @@ def knn(data_manager: DataManager, neighbors=300):
     y_pred_prob = knn.predict_proba(test_features)[:, 1]
     return roc_auc_score(test_labels, y_pred_prob)
 
+@mean_result()
 def gnb(data_manager: DataManager):
     train_features, test_features, train_labels, test_labels = data_manager.train_split()
     gnb = GaussianNB()
@@ -56,7 +59,7 @@ def gnb(data_manager: DataManager):
     y_pred_prob = gnb.predict_proba(test_features)[:, 1]
     return roc_auc_score(test_labels, y_pred_prob)
 
-@mean_result(50)
+@mean_result()
 def random_forest(data_manager: DataManager, estimators=100):
     train_features, test_features, train_labels, test_labels = data_manager.train_split()
     rf = RandomForestClassifier(n_estimators=estimators)
@@ -65,7 +68,7 @@ def random_forest(data_manager: DataManager, estimators=100):
     y_pred_prob = rf.predict_proba(test_features)[:, 1] 
     return roc_auc_score(test_labels, y_pred_prob)
 
-@mean_result(10)
+@mean_result(5)
 def mlp_classifier(data_manager: DataManager, hidden_layers=(10, 20, 10)):
     train_features, test_features, train_labels, test_labels = data_manager.train_split()
 
@@ -76,7 +79,7 @@ def mlp_classifier(data_manager: DataManager, hidden_layers=(10, 20, 10)):
     mlp = MLPClassifier(hidden_layer_sizes=hidden_layers,
                         activation='logistic',
                         solver='adam',
-                        max_iter=1000, random_state=42)
+                        max_iter=1000, random_state=None)
     mlp.fit(X_train, train_labels)
 
     y_pred_prob = mlp.predict_proba(X_test)[:, 1]
