@@ -1,7 +1,7 @@
 from data import DataManager
 import argparse
 import json
-from ml import logistic_regression, random_forest, knn, gnb
+from ml import lasso, ridge, random_forest, knn, gnb
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-o", 
@@ -39,8 +39,10 @@ with open(args.features, "r") as features_file:
 dm.set_tested_features(tested_features)
 
 print("Source: %s" % args.features)
+print("Outcome: %s" % args.outcome)
 print("Number of features: %s" % len(tested_features))
-print("Logistic regression AUC: %.6f" % logistic_regression(dm))
+print("LR (Ridge) AUC:          %.6f" % ridge(dm))
+print("LR (LASSO) AUC:          %.6f" % lasso(dm))
 print("Random Forest AUC:       %.6f" % random_forest(dm))
 print("KNN AUC:                 %.6f" % knn(dm))
 print("Naive Bayes AUC:         %.6f" % gnb(dm))

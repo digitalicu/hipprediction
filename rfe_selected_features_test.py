@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 import argparse
-from ml import logistic_regression, random_forest, rfe_feature_selection, knn, gnb
+from ml import lasso, ridge, random_forest, rfe_feature_selection, knn, gnb
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-o", 
@@ -35,10 +35,17 @@ dm.set_feature(args.outcome)
 if args.procedure:
     dm.switch_procedure()
 
-lr_features = rfe_feature_selection(dm, LogisticRegression(solver='liblinear'), fts=args.features_to_select)
+print("Outcome: %s" % args.outcome)
+
+lr_features = rfe_feature_selection(dm, LogisticRegression(solver='liblinear', penalty="l2"), fts=args.features_to_select)
 dm.set_tested_features(lr_features)
 print("Selected: %s" % ", ".join(lr_features))
-print("Logistic regression AUC: %.6f" % logistic_regression(dm))
+print("LR (Ridge) AUC:          %.6f" % ridge(dm))
+
+l_features = rfe_feature_selection(dm, LogisticRegression(solver='liblinear', penalty="l1"), fts=args.features_to_select)
+dm.set_tested_features(l_features)
+print("Selected: %s" % ", ".join(l_features))
+print("LR (LASSO) AUC:          %.6f" % lasso(dm))
 
 rf_features = rfe_feature_selection(dm, RandomForestClassifier(n_estimators=100), fts=args.features_to_select)
 dm.set_tested_features(rf_features)

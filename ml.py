@@ -32,10 +32,16 @@ def rfe_feature_selection(data_manager: DataManager, classifier, step=1, fts=10)
     s = rfe_method.get_support()
     return list([data_manager.get_tested_features()[i] for i,v in enumerate(s) if v])
 
+def lasso(data_manager: DataManager):
+    return logistic_regression(data_manager, penalty="l1")
+
+def ridge(data_manager: DataManager):
+    return logistic_regression(data_manager, penalty="l2")
+
 @mean_result()
-def logistic_regression(data_manager: DataManager):
+def logistic_regression(data_manager: DataManager, penalty="l2"):
     train_features, test_features, train_labels, test_labels = data_manager.train_split()
-    lr = LogisticRegression(solver='liblinear')
+    lr = LogisticRegression(solver='liblinear', penalty=penalty)
     lr.fit(train_features, train_labels)
 
     y_pred_prob = lr.predict_proba(test_features)[:, 1]
