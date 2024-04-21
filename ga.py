@@ -7,7 +7,7 @@ import pygad
 import os
 import json
 from datetime import datetime
-from ml import logistic_regression, random_forest, knn, gnb
+from ml import lasso, ridge, random_forest, knn, gnb
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-g", 
@@ -87,8 +87,10 @@ def fitness_func(ga_instance, solution, solution_idx):
     selected_columns = [columns[i] for i, s in enumerate(solution) if s]
     dm.set_tested_features(selected_columns)
     
-    if args.algorithm == 'lr':
-        return logistic_regression(dm)
+    if args.algorithm == 'l':
+        return lasso(dm)
+    elif args.algorithm == 'rf':
+        return ridge(dm)
     elif args.algorithm == 'rf':
         return random_forest(dm)
     elif args.algorithm == 'knn':
