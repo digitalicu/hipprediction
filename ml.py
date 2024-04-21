@@ -11,7 +11,7 @@ from sklearn.metrics import roc_auc_score
 
 import numpy as np
 
-def mean_result(cnt=10):
+def mean_result(cnt=1):
     def decorator(function):
         def wrapper(*args, **kwargs):
             results = []

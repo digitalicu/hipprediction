@@ -5,7 +5,7 @@ import copy
 
 class DataManager(object):
     test_size = 0.25
-    random_state = None
+    random_state = 25946
     use_procedure = False
 
     def __init__(self, filename):
