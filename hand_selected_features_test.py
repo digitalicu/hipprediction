@@ -14,6 +14,11 @@ parser.add_argument("-f",
                     help="File with json array of selected features", 
                     default="features/osteoporosis_35_561.json",
                     type=str)
+parser.add_argument("-a", 
+                    "--all_features",
+                    help="Use all possible features", 
+                    action=argparse.BooleanOptionalAction,
+                    type=bool)
 parser.add_argument("-p", 
                     "--procedure",
                     help="To include procedure as parameter", 
@@ -33,10 +38,13 @@ if args.procedure:
     dm.switch_procedure()
 
 tested_features = []
-with open(args.features, "r") as features_file:
-    tested_features = json.loads(features_file.read())
+if not args.all_features:
+    with open(args.features, "r") as features_file:
+        tested_features = json.loads(features_file.read())
 
-dm.set_tested_features(tested_features)
+    dm.set_tested_features(tested_features)
+else:
+    tested_features = dm.get_tested_features()
 
 print("Source: %s" % args.features)
 print("Outcome: %s" % args.outcome)
