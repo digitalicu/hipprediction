@@ -34,6 +34,37 @@
 
 ## Modules
 
+### ga.py
+
+| Parameter | Description |
+| -- | -- |
+| -g / --generations | Number of generations (Default: 10) |
+| -t / --threads | Number of threads for PyGAD lib (Default: 8) |
+| -o / --outcome | Outcome m30/m90/m180/m365 (Default: m30) |
+| -f / --folder | Folder to save result (Default: "default") |
+| -p / --procedure | Activates column procedure as training feature (Default: False) |
+| -d / --data | Data *.csv (Default: full.csv) |
+| -a / --algorithm | Algorithm to use 'l', 'r', 'knn' or 'rf' |
+
+### hand_selected_features_test.py
+
+| Parameter | Description |
+| -- | -- |
+| -o / --outcome | Outcome m30/m90/m180/m365 (Default: m30) |
+| -f / --features | File with JSON array of selected features (Default: "features/osteoporosis_35_561.json") |
+| -p / --procedure | Activates column procedure as training feature (Default: False) |
+| -d / --data | Data *.csv (Default: full.csv) |
+| -a / --all_features | If active all possible features are used as scale (Default: False) |
+
+### rfe_selected_features_test.py
+
+| Parameter | Description |
+| -- | -- |
+| -o / --outcome | Outcome m30/m90/m180/m365 (Default: m30) |
+| -p / --procedure | Activates column procedure as training feature (Default: False) |
+| -d / --data | Data *.csv (Default: full.csv) |
+| -fts / --features_to_select | Number of features for RFE to select (Default: 10) |
+
 ## Experiment
 
 Attention, certain calculations are sensitive to CPU usage and may require significant processing time.
@@ -70,3 +101,7 @@ python rfe_selected_features_test.py -o m90 -fts 24
 ```
 python ga.py -a r -g 1000 -o m90 -f g1000_m90
 ```
+
+## Contact to author
+
+Dr. Andrei Mazur <agrshkv@gmail.com>, [Shamir Medical Center](https://www.shamir.org/en/about/)
