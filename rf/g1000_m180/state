@@ -1,4 +1,4 @@
-Time : 2024-01-16 18:08:05.381698
+Time : 2024-04-29 04:58:10.616773
 Generation : 1000
-Fitness of the best solution : 0.788591973432399
-["facility", "age", "MPV", "RDW", "MCHC", "Urea", "%BASO", "%MONO", "%LYM", "WBC", "RBC", "250", "V58", "305", "585", "V14", "427", "285", "278", "99", "244", "V45", "428"]
+Fitness of the best solution : 0.8238659890833804
+["gender", "facility", "age", "RDW", "MCHC", "Sodium", "Urea", "Potassium", "%MONO", "WBC", "%EOS", "HGB", "HCT", "MCV", "250", "733", "V15", "290", "585", "V14", "414", "427", "496", "285", "278", "99", "244", "V45"]

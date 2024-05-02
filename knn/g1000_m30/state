@@ -1,4 +1,4 @@
-Time : 2024-04-20 21:29:59.054828
+Time : 2024-04-29 05:40:52.673809
 Generation : 1000
-Fitness of the best solution : 0.7878631082062454
-["facility", "age", "INR", "PT", "PLT", "Creatinine", "Chloride", "Sodium", "Urea", "Potassium", "%MONO", "WBC", "%EOS", "HGB", "MCV", "MCH", "250", "438", "272", "305", "414", "427", "428", "total_dis"]
+Fitness of the best solution : 0.7943270316865821
+["facility", "age", "INR", "PT", "RDW", "MCHC", "Creatinine", "Chloride", "Potassium", "%BASO", "%MONO", "%EOS", "HCT", "MCV", "MCH", "290", "438", "272", "305", "414", "427", "496", "285", "244", "428", "total_dis"]

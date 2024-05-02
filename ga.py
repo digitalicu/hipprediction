@@ -42,7 +42,7 @@ parser.add_argument("-d",
                     type=str)
 parser.add_argument("-a", 
                     "--algorithm",
-                    help="Wich algorithm to use 'l', 'r', 'knn' or 'rf", 
+                    help="Wich algorithm to use 'l', 'r', 'knn', 'gnb' or 'rf'", 
                     default="l",
                     type=str)
 args = parser.parse_args()
@@ -85,7 +85,6 @@ def on_gen(ga_instance):
 def fitness_func(ga_instance, solution, solution_idx):
     global columns, dm
     selected_columns = [columns[i] for i, s in enumerate(solution) if s]
-    print(selected_columns)
     dm.set_tested_features(selected_columns)
     
     if args.algorithm == 'l':

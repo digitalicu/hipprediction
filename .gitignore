@@ -2,3 +2,9 @@
 __pycache__/*
 *.ipynb
 test_split_number_search.py
+*.svg
+l/*
+r/*
+knn/*
+gnb/*
+rf/*
